@@ -1,15 +1,26 @@
 from .exceptions import *
+import random
 
 # Complete with your own, just for fun :)
-LIST_OF_WORDS = []
+list_of_words = ["hangman", "chairs", "backpack", "bodywash", "clothing",
+                 "computer", "python", "program", "glasses", "sweatshirt",
+                 "sweatpants", "mattress", "friends", "clocks", "biology",
+                 "algebra", "suitcase", "knives", "ninjas", "shampoo"]
 
 
 def _get_random_word(list_of_words):
-    pass
-
+    if len(word) < 1:
+        raise InvalidListOfWordsException
+    else:
+        return random.choice(list_of_words).lower()
 
 def _mask_word(word):
-    pass
+    numchar = len(list_of_words)
+    if numchar > 0:
+        mask_word = '*' * numchar
+        return mask_word
+    else:
+        raise InvalidWordException
 
 
 def _uncover_word(answer_word, masked_word, character):
