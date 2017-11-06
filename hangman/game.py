@@ -2,7 +2,7 @@ from .exceptions import *
 import random
 
 # Complete with your own, just for fun :)
-list_of_words = ["hangman", "chairs", "backpack", "bodywash", "clothing",
+LIST_OF_WORDS = ["hangman", "chairs", "backpack", "bodywash", "clothing",
                  "computer", "python", "program", "glasses", "sweatshirt",
                  "sweatpants", "mattress", "friends", "clocks", "biology",
                  "algebra", "suitcase", "knives", "ninjas", "shampoo"]
@@ -26,15 +26,27 @@ def _mask_word(word):
 def _uncover_word(answer_word, masked_word, character):
     if len(answer_word) < 1 or len(masked_word) < 1:
         raise InvalidWordException()
+
     if len(character) <= 0 or len(character) >= 2:
         raise InvalidGuessedLetterException()
+
     if len(answer_word) != len(masked_word):
         raise InvalidWordException()
+
     if answer_word == masked_word:
         raise GameFinishedException()
 
-
-
+    if character.lower() in answer_word.lower():
+        word_list = list(answer_word)
+        counter = 0
+        while word_list[counter] != character and counter < len(word_list):
+            counter += 1
+        masked_word_list = list(masked_word)
+        masked_word_list[counter] = character
+        masked_word = ''.join(masked_word_list)
+        return masked_word
+    else:
+        return masked_word
 
 
 def guess_letter(game, letter):
