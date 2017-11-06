@@ -9,22 +9,32 @@ list_of_words = ["hangman", "chairs", "backpack", "bodywash", "clothing",
 
 
 def _get_random_word(list_of_words):
-    if len(word) < 1:
-        raise InvalidListOfWordsException
+    if len(list_of_words) < 1:
+        raise InvalidListOfWordsException()
     else:
         return random.choice(list_of_words).lower()
 
 def _mask_word(word):
-    numchar = len(list_of_words)
-    if numchar > 0:
-        mask_word = '*' * numchar
+    num_char = len(word)
+    if num_char > 0:
+        mask_word = '*' * num_char
         return mask_word
     else:
-        raise InvalidWordException
+        raise InvalidWordException()
 
 
 def _uncover_word(answer_word, masked_word, character):
-    pass
+    if len(answer_word) < 1 or len(masked_word) < 1:
+        raise InvalidWordException()
+    if len(character) <= 0 or len(character) >= 2:
+        raise InvalidGuessedLetterException()
+    if len(answer_word) != len(masked_word):
+        raise InvalidWordException()
+    if answer_word == masked_word:
+        raise GameFinishedException()
+
+
+
 
 
 def guess_letter(game, letter):
