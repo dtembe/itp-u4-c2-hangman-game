@@ -14,6 +14,7 @@ def _get_random_word(list_of_words):
     else:
         return random.choice(list_of_words).lower()
 
+
 def _mask_word(word):
     num_char = len(word)
     if num_char > 0:
@@ -35,7 +36,6 @@ def _uncover_word(answer_word, masked_word, character):
 
     if answer_word == masked_word:
         raise GameFinishedException()
-
 
     word = ''
     answer_case = answer_word.lower()
