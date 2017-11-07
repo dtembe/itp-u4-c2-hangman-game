@@ -12,7 +12,7 @@ def _get_random_word(list_of_words):
     if len(list_of_words) < 1:
         raise InvalidListOfWordsException()
     else:
-        return random.choice(list_of_words).lower()
+        return random.choice(list_of_words)
 
 
 def _mask_word(word):
@@ -80,7 +80,6 @@ def guess_letter(game, letter):
         raise GameLostException()
 
     return word
-
 
 def start_new_game(list_of_words=None, number_of_guesses=5):
     if list_of_words is None:
