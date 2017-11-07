@@ -17,7 +17,7 @@ def _get_random_word(list_of_words):
 def _mask_word(word):
     num_char = len(word)
     if num_char > 0:
-        mask_word = '*' * len(num_char)
+        mask_word = '*' * num_char
         return mask_word
     else:
         raise InvalidWordException()
@@ -27,7 +27,7 @@ def _uncover_word(answer_word, masked_word, character):
     if len(answer_word) < 1 or len(masked_word) < 1:
         raise InvalidWordException()
 
-    if len(character) <= 0 or len(character) >= 2:
+    if len(character) != 1:
         raise InvalidGuessedLetterException()
 
     if len(answer_word) != len(masked_word):
@@ -36,17 +36,20 @@ def _uncover_word(answer_word, masked_word, character):
     if answer_word == masked_word:
         raise GameFinishedException()
 
-    if character.lower() in answer_word.lower():
-        word_list = list(answer_word)
-        counter = 0
-        while word_list[counter] != character and counter < len(word_list):
-            counter += 1
-        masked_word_list = list(masked_word)
-        masked_word_list[counter] = character
-        masked_word = ''.join(masked_word_list)
+
+    word = ''
+    answer_case = answer_word.lower()
+    character_case = character.lower()
+
+    if character_case not in answer_case:
         return masked_word
-    else:
-        return masked_word
+
+    for index in range(len(answer_word)):
+        if character_case == answer_case[index]:
+            word += answer_case[index]
+        else:
+            word += masked_word[index]
+    return word
 
 
 def guess_letter(game, letter):
