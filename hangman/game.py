@@ -17,7 +17,7 @@ def _get_random_word(list_of_words):
 def _mask_word(word):
     num_char = len(word)
     if num_char > 0:
-        mask_word = '*' * num_char
+        mask_word = '*' * len(num_char)
         return mask_word
     else:
         raise InvalidWordException()
